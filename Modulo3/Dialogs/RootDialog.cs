@@ -9,7 +9,7 @@ namespace Modulo3.Dialogs
     [Serializable]
     public class RootDialog : IDialog<object>
     {
-        private const string SEGREDO = "segredo";
+        private const string EXIBE_DIA = "segredo";
         private const string OPCAO1 = "OPCAO1";
         private const string OPCAO2 = "OPCAO2";
         public Task StartAsync(IDialogContext context)
@@ -32,11 +32,11 @@ namespace Modulo3.Dialogs
                 var heroCard = CreateHeroCard();
                 heroCard.Buttons = new List<CardAction>() {
                     new CardAction (){
-                        Text ="Quer saber meu segredo?",
+                        Text ="Que dia é hoje?",
                         DisplayText = "Display",
                         Title = "Title",
                         Type = ActionTypes.PostBack ,
-                        Value = SEGREDO
+                        Value = EXIBE_DIA
                     }
                 };
                 message.Attachments.Add(heroCard.ToAttachment());
@@ -65,9 +65,9 @@ namespace Modulo3.Dialogs
                 message.Attachments.Add(CreateHeroCard().ToAttachment());
                 message.Attachments.Add(CreateVideoCard());
             }
-            else if (activityText == SEGREDO.ToLower())
+            else if (activityText == EXIBE_DIA.ToLower())
             {
-                message.Text = "Peidei :)";
+                message.Text = $"Hoje é {DateTime.Now.ToString()}";
             }
             else if (activityText == "menu")
             {
@@ -94,7 +94,8 @@ namespace Modulo3.Dialogs
                 };
                 message.Attachments.Add(btn.ToAttachment());
             }
-            else if (activityText == OPCAO1.ToLower()) {
+            else if (activityText == OPCAO1.ToLower())
+            {
                 message.Text = "inscrições x y z";
             }
             else if (activityText == OPCAO2.ToLower())
